@@ -1,6 +1,7 @@
-"""业务路由汇总：所有模块共用一套资源路由，由领域服务完成分派。"""
+"""业务路由汇总：时间迁移等固定前缀路由先注册，通用资源路由兜底。"""
 from __future__ import annotations
 
-from app.routers import resource
+from app.routers import resource, time_migration
 
-ROUTERS = [resource]
+# 固定前缀路由必须排在 /api/{module} 动态路由之前，否则会被抢占
+ROUTERS = [time_migration, resource]
